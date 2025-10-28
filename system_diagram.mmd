@@ -1,0 +1,15 @@
+flowchart LR
+  UI[User Interface (Chat / Mobile / Voice)] -->|Intent| Itinerary[Itinerary Agent (Orchestrator)]
+  Itinerary --> MB[(Message Bus - Kafka/RabbitMQ)]
+  MB --> Weather[Weather Agent]
+  MB --> Transport[Transport Agent]
+  MB --> Pricing[Pricing Agent]
+  MB --> Booking[Booking Agent]
+  MB --> Preference[Preference Agent]
+  Weather -->|weather data| DataStore[(Cache / DB / Vector DB)]
+  Transport -->|traffic/road| External[External APIs]
+  Pricing --> External
+  Booking --> External
+  Itinerary --> Planner[Planner / Optimizer]
+  Planner --> Itinerary
+  Itinerary --> UI
